@@ -1,7 +1,5 @@
 # ASL_pymol_updated
 Updated pymol repo that will NOT have branches
-# ASL_pymol
-This repo is for organizing and annotating hemagglutinin structures in pymol. 
 
 README / Summary:
 =================

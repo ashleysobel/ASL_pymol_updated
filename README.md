@@ -9,7 +9,11 @@ This script is designed to automate the process of loading molecular structures 
 To use this script:
 1. Ensure PyMOL is installed and running.
 2. Place this script in your working directory.
-4. Run the script directly using PyMOL's Python environment (e.g., `run pymol_script.py`).
+3. Set the following paths and constants in the script:
+   - `DEFAULT_OUTPUT_LOCATION`: Set to the directory where you want the images to be saved.
+   - `DEFAULT_SESSION_LOCATION`: Set to the directory where you want the PyMOL sessions to be saved.
+   - `cif_file_path`: Set this path to the location of your `.cif` file.
+4. Run the script directly using PyMOL's Python environment (e.g., `run /path/to/your/Pymol_mark_mutations_GitHub.py`).
 5. The script will output images to the specified directory, organized by protein and sequence name.
 
 Main Sections:
@@ -36,11 +40,12 @@ This script is designed to be run directly in the PyMOL environment. Due to PyMO
 2. **Run the `process_sequence()` Function**:
    - Manually copy and paste one of the following commands into the PyMOL command line:
    
-   **Example 1:**
+   **Example for H1N1:**
    ```python
-   process_sequence(seq_name='temp6', cif_file_path='/path_to_your_cif_file.cif', strain_type='H1N1', clade='5a.2a.1', subclade='D', H1_mutations=[], H2_mutations=[])
+   process_sequence(seq_name='H1_01', cif_file_path='/path_to_your_cif_file.cif', strain_type='H1N1', clade='5a.2a', subclade='C.1', H1_mutations=[], H2_mutations=[91,177])
+   ```
 
-
-Author: [Ashley Sobel Leonard]
-Date: [08/09/2024]
-
+   **Example for H3N2:**
+   ```python
+    process_sequence(seq_name='H3_01_AAID07', cif_file_path='/path_to_your_cif_file.cif', strain_type='H3N2', clade='2a.1', subclade='G.1.1', H1_mutations=[], H2_mutations=[174])
+   ```

@@ -16,9 +16,13 @@ from pymol import cmd
 import os
 
 # Constants 
-DEFAULT_OUTPUT_LOCATION = "/Users/ashleysobelleonard/code/CHOP_Pymol/CHOC-Prospective/Python_code/ImageOutput/"
-DEFAULT_SESSION_LOCATION = "/Users/ashleysobelleonard/code/CHOP_Pymol/CHOC-Prospective/Python_code/StructureSessions/"
+DEFAULT_OUTPUT_LOCATION = os.path.join(os.path.dirname(__file__), 'Code_output', 'Images')
+DEFAULT_SESSION_LOCATION = os.path.join(os.path.dirname(__file__), 'Code_output', 'Sessions')
 DEFAULT_COLOR = 'grey70'
+
+# Define the paths for the cif files based on strain type
+cif_file_path_H1 = os.path.join(os.path.dirname(__file__), 'ASL_pymol_updated', 'Structure_files', '4lxv-assembly1.cif')
+cif_file_path_H3 = os.path.join(os.path.dirname(__file__), 'ASL_pymol_updated', 'Structure_files', '4o5n-assembly1.cif')
 
 # ---------------------------------------------------
 # Initialization and Setup Functions
@@ -323,14 +327,18 @@ def process_sequence(seq_name, cif_file_path, strain_type, clade, subclade, H1_m
     
     # Clear prior functions
     clear_all_selections()
-
-    # Determine the protein based on the strain type
+    
+    # Automatically select cif_file_path based on strain_type
     if strain_type == 'H1N1':
+        cif_file_path = cif_file_path_H1
         protein = 'H1'
     elif strain_type == 'H3N2':
+        cif_file_path = cif_file_path_H3
         protein = 'H3'
     else:
         raise ValueError(f"Unknown strain type: {strain_type}. Please use 'H1N1' or 'H3N2'.")
+
+e ValueError(f"Unknown strain type: {strain_type}. Please use 'H1N1' or 'H3N2'.")
 
     # Set up the base environment
     set_base(cif_file_path)
@@ -352,62 +360,20 @@ print("Loaded Functions")
 # Manual Execution Instructions
 # ----------------------------------------------
 
-# Set the path for the cif file
-cif_file_path_H1 = "/Users/ashleysobelleonard/code/CHOP_Pymol/CHOC-Prospective/Hemagglutinin/H1/4lxv-assembly1.cif"
-cif_file_path_H3 = "/Users/ashleysobelleonard/code/CHOP_Pymol/CHOC-Prospective/Hemagglutinin/H3/4o5n-assembly1.cif"
 # To use this script, manually run the `process_sequence()` function in the PyMOL command line or script. 
 # Example 1: Generate images for specific mutations
 # Copy and paste the following line into the PyMOL command line (has options filled out):
 
 # Sequences for H1N1
 # process_sequence(seq_name='H1_01', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1', H1_mutations=[], H2_mutations=[91,177])
-# process_sequence(seq_name='H1_02', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1', H1_mutations=[137], H2_mutations=[91])
-# process_sequence(seq_name='H1_03', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1.8', H1_mutations=[96], H2_mutations=[200])
-# process_sequence(seq_name='H1_04', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1.8', H1_mutations=[96,265], H2_mutations=[200])
-# process_sequence(seq_name='H1_05', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1.9', H1_mutations=[112], H2_mutations=[183])
-# process_sequence(seq_name='H1_06', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1.9', H1_mutations=[160,216], H2_mutations=[179])
-# process_sequence(seq_name='H1_07', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1.9', H1_mutations=[127,216], H2_mutations=[179])
-# process_sequence(seq_name='H1_08', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='C.1.1', H1_mutations=[], H2_mutations=[])
-# process_sequence(seq_name='H1_09', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='C.1.1', H1_mutations=[54], H2_mutations=[])
-# process_sequence(seq_name='H1_10', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D', H1_mutations=[], H2_mutations=[])
-# process_sequence(seq_name='H1_11', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D', H1_mutations=[274], H2_mutations=[])
-# process_sequence(seq_name='H1_12', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D', H1_mutations=[183,274], H2_mutations=[])
-# process_sequence(seq_name='H1_13', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D', H1_mutations=[], H2_mutations=[88])
-# process_sequence(seq_name='H1_14', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D', H1_mutations=[35], H2_mutations=[])
-# process_sequence(seq_name='H1_15', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D', H1_mutations=[], H2_mutations=[88,125])
-# process_sequence(seq_name='H1_16', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D.1', H1_mutations=[], H2_mutations=[])
-# process_sequence(seq_name='H1_17', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D.1', H1_mutations=[141], H2_mutations=[])
-# process_sequence(seq_name='H1_18', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D.1', H1_mutations=[302], H2_mutations=[])
-# process_sequence(seq_name='H1_19', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D.1', H1_mutations=[250], H2_mutations=[78])
-# process_sequence(seq_name='H1_20', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D.2', H1_mutations=[186], H2_mutations=[])
-# process_sequence(seq_name='H1_21', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a.1', subclade='D.2', H1_mutations=[274], H2_mutations=[])
+
 
 # Sequences for H3N2 
-process_sequence(seq_name='H3_01_AAID07', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2a.1', subclade='G.1.1', H1_mutations=[], H2_mutations=[174])
-# process_sequence(seq_name='H3_02_AAID04', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2a.1b', subclade='G.1.1.2', H1_mutations=[], H2_mutations=[])
-# process_sequence(seq_name='H3_03_AAID02', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[101], H2_mutations=[])
-# process_sequence(seq_name='H3_04', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[81], H2_mutations=[149])
-# process_sequence(seq_name='H3_05_AAID12', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[275], H2_mutations=[])
-# process_sequence(seq_name='H3_06', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[27], H2_mutations=[])
-# process_sequence(seq_name='H3_07_AAID09', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[50,242], H2_mutations=[139,202])
-# process_sequence(seq_name='H3_08_AAID16', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[82], H2_mutations=[])
-# process_sequence(seq_name='H3_09_AAID01', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[81], H2_mutations=[])
-# process_sequence(seq_name='H3_10_AAID10', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[81], H2_mutations=[])
-# process_sequence(seq_name='H3_11_AAID08', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[79,122], H2_mutations=[])
-# process_sequence(seq_name='H3_12_AAID15', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[105,312], H2_mutations=[])
-# process_sequence(seq_name='H3_13_AAID03', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[], H2_mutations=[82])
-# process_sequence(seq_name='H3_14_AAID05', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[], H2_mutations=[212])
-# process_sequence(seq_name='H3_15_Consensus', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[], H2_mutations=[])
-# process_sequence(seq_name='H3_16', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[], H2_mutations=[43])
-# process_sequence(seq_name='H3_17_AAID14', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2', H1_mutations=[137,188,233], H2_mutations=[])
-# process_sequence(seq_name='H3_18_AAID11', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2.1', H1_mutations=[122], H2_mutations=[])
-# process_sequence(seq_name='H3_19_AAID13', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2.1', H1_mutations=[328], H2_mutations=[])
-# process_sequence(seq_name='H3_20_AAID06', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2.1', H1_mutations=[], H2_mutations=[])
-# process_sequence(seq_name='H3_21_AAID17', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2b', subclade='G.2.1', H1_mutations=[], H2_mutations=[116,158])
-
-
+# process_sequence(seq_name='H3_01_AAID07', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='2a.1', subclade='G.1.1', H1_mutations=[], H2_mutations=[174])
 # process_sequence(seq_name='', cif_file_path=cif_file_path_H3, strain_type='H3N2', clade ='', subclade='', H1_mutations=[], H2_mutations=[])
 
 # Example 2: Generate images with no mutations
 # Copy and paste the following line into the PyMOL command line (instructions for filling out command below):
 # process_sequence(seq_name='your_sequence_name', cif_file_path='/path_to_your_cif_file.cif', strain_type='H1N1', clade='your_clade', subclade='your_subclade', H1_mutations=[], H2_mutations=[])
+
+process_sequence(seq_name='Test', cif_file_path=cif_file_path_H1, strain_type='H1N1', clade ='5a.2a', subclade='C.1', H1_mutations=[], H2_mutations=[])
